@@ -2,6 +2,11 @@ package com.java;
 
 public class CensusAnalyserException extends Exception {
 
+
+    public CensusAnalyserException() {
+        super();
+    }
+
     enum ExceptionType {
         CENSUS_FILE_PROBLEM
     }

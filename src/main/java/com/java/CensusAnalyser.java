@@ -25,8 +25,7 @@ public class CensusAnalyser {
             }
             return namOfEateries;
         } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            throw new CensusAnalyserException();
         }
-    }
+   }
 }

@@ -11,5 +11,14 @@ public class CensusAnalyserTest {
         int numOfEntries=censusAnalyser.loadIndiaCensusData(CENSUS_FILE_PATH);
         Assert.assertEquals(29,numOfEntries);
     }
+    @Test
+    public void ifNoOfRecordDoesNotMatchReturnFalse() throws CensusAnalyserException {
+            try {
+                int numOfEntries=censusAnalyser.loadIndiaCensusData(CENSUS_FILE_PATH);
+                Assert.assertEquals(40,numOfEntries);
+            }catch (CensusAnalyserException e){
+                System.out.println(CensusAnalyserEnum.FALSE_ENTRY);
+        }
+    }
 
 }
