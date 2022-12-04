@@ -10,7 +10,7 @@ public class CensusAnalyserTest {
     static CensusAnalyser censusAnalyser=new CensusAnalyser();
     @Test
     public void ifNoOfRecordMatchesReturnTrue() throws CensusAnalyserException {
-        int numOfEntries=censusAnalyser.loadIndiaCensusData(CENSUS_FILE_PATH);
+        int numOfEntries=censusAnalyser.numberOfEntries(CENSUS_FILE_PATH);
         Assert.assertEquals(29,numOfEntries);
     }
     @Test
@@ -20,10 +20,7 @@ public class CensusAnalyserTest {
         }catch (CensusAnalyserException e){
             System.out.println(CensusAnalyserEnum.WRONG_FILE);
         }
-
-
-
-
     }
+
 
 }
