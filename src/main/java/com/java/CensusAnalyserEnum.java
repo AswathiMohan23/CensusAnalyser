@@ -1,5 +1,5 @@
 package com.java;
 
 public enum CensusAnalyserEnum {
-    FALSE_ENTRY;
+    FALSE_ENTRY, WRONG_FILE;
 }
