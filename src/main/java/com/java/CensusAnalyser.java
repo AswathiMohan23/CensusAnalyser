@@ -1,5 +1,4 @@
 package com.java;
-
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -13,7 +12,10 @@ import java.util.Iterator;
 
 public class CensusAnalyser {
     public static int numOfEntries = 0;
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
+    public void loadIndianCensusData(String csvFile) throws CensusAnalyserException {
+        loadCensusData(csvFile);
+    }
+    public int loadCensusData(String csvFilePath) throws CensusAnalyserException {
         IndiaCensusCSV censusData = null;
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
@@ -25,21 +27,19 @@ public class CensusAnalyser {
             while (censusCSVIterator.hasNext()) {
                 numOfEntries++;
                 censusData = censusCSVIterator.next();
-                System.out.println(censusData);
-
             }
             return numOfEntries;
         } catch (IOException e) {
             throw new CensusAnalyserException();
         }
-   }
+    }
 
-   public int numberOfEntries(String csvFile) throws CensusAnalyserException {
-       try {
-           loadIndiaCensusData(csvFile);
-           return numOfEntries;
-       } catch (CensusAnalyserException e) {
-           throw new CensusAnalyserException();
-       }
+    public int numberOfEntries(String csvFile) throws CensusAnalyserException {
+        try {
+            loadCensusData(csvFile);
+            return numOfEntries;
+        } catch (CensusAnalyserException e) {
+            throw new CensusAnalyserException();
+        }
     }
 }
