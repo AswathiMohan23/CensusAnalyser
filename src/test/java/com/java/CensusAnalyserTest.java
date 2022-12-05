@@ -3,6 +3,7 @@ package com.java;
 import com.opencsv.exceptions.CsvValidationException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
 
@@ -14,17 +15,21 @@ public class CensusAnalyserTest {
     static String WRONG_HEADER ="src/main/java/com/inputFiles/WrongHeader.csv";
 
     static CensusAnalyser censusAnalyser=new CensusAnalyser();
+    static StateCensusAnalyser stateCensusAnalyser=new StateCensusAnalyser();
     @Test
     public void ifNoOfRecordMatchesReturnTrue() throws CensusAnalyserException {
         int numOfEntries=censusAnalyser.numberOfEntries(CENSUS_FILE_PATH);
         Assert.assertEquals(29,numOfEntries);
     }
     @Test
-    public void ifWrongFileIsGivenThenShouldReturnException() throws CensusAnalyserException {
+    public void givenIndiaCensusData_WithWrongFileType_ShouldThrowException () {
         try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
             censusAnalyser.loadIndianCensusData(WRONG_CENSUS_FILE);
-        }catch (CensusAnalyserException e){
-            System.out.println(CensusAnalyserEnum.WRONG_FILE);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE, e.type);
         }
     }
 
@@ -46,7 +51,7 @@ public class CensusAnalyserTest {
     }*/
    @Test
    public void ifNoOfStateCodeRecordsMatchesReturnTrue() throws CensusAnalyserException {
-       int numOfEntries=censusAnalyser.numberOfEntries(STATE_CODE_FILE_PATH);
+       int numOfEntries=stateCensusAnalyser.numberOfEntries(STATE_CODE_FILE_PATH);
        Assert.assertEquals(29,numOfEntries);
    }
 }

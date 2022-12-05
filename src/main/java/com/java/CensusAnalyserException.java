@@ -7,8 +7,8 @@ public class CensusAnalyserException extends Exception {
         super();
     }
 
-  /* enum ExceptionType {
-        CENSUS_FILE_PROBLEM
+   enum ExceptionType {
+       WRONG_FILE_TYPE, Incorrect_Delimiter_OR_wrong_Header, CENSUS_FILE_PROBLEM
     }
 
     ExceptionType type;
@@ -21,5 +21,5 @@ public class CensusAnalyserException extends Exception {
     public CensusAnalyserException(String message, ExceptionType type, Throwable cause) {
         super(message, cause);
         this.type = type;
-    }*/
+    }
 }

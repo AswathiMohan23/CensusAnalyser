@@ -7,15 +7,14 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class CensusAnalyser {
     public static int numOfEntries = 0;
-    public void loadIndianCensusData(String csvFile) throws CensusAnalyserException {
-        loadCensusData(csvFile);
-    }
-    public int loadCensusData(String csvFilePath) throws CensusAnalyserException {
+
+    public int loadIndianCensusData(String csvFilePath) throws CensusAnalyserException {
         IndiaCensusCSV censusData = null;
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
@@ -29,14 +28,22 @@ public class CensusAnalyser {
                 censusData = censusCSVIterator.next();
             }
             return numOfEntries;
-        } catch (IOException e) {
-            throw new CensusAnalyserException();
+        } catch (NoSuchFileException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE);
+        }catch (RuntimeException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.Incorrect_Delimiter_OR_wrong_Header);
+        }
+        catch (IOException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
 
     public int numberOfEntries(String csvFile) throws CensusAnalyserException {
         try {
-            loadCensusData(csvFile);
+            loadIndianCensusData(csvFile);
             return numOfEntries;
         } catch (CensusAnalyserException e) {
             throw new CensusAnalyserException();
