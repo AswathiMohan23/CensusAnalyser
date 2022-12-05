@@ -13,6 +13,7 @@ public class CensusAnalyserTest {
     static String WRONG_DELIMITER ="src/main/java/com/inputFiles/WrongDelimiter.csv";
     static String WRONG_DELIMITER_STATE ="src/main/java/com/inputFiles/StateCodeWrongDelimiter.csv";
     static String WRONG_HEADER ="src/main/java/com/inputFiles/WrongHeader.csv";
+    static String STATE_CODE_WRONG_HEADER ="src/main/java/com/inputFiles/StateCodeWrongHeader.csv";
 
     static CensusAnalyser censusAnalyser=new CensusAnalyser();
     static StateCensusAnalyser stateCensusAnalyser=new StateCensusAnalyser();
@@ -68,6 +69,15 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.Incorrect_Delimiter_OR_wrong_Header, e.type);
         }
-
+    }
+    @Test
+    public void givenStateCodeDataWithWrongHeaderShouldThrowException() {
+        try {
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndianCensusData(STATE_CODE_WRONG_HEADER);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.Incorrect_Delimiter_OR_wrong_Header, e.type);
+        }
     }
 }
