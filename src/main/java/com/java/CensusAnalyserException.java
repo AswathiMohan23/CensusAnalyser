@@ -3,12 +3,13 @@ package com.java;
 public class CensusAnalyserException extends Exception {
 
 
+
     public CensusAnalyserException() {
         super();
     }
 
-  /* enum ExceptionType {
-        CENSUS_FILE_PROBLEM
+   enum ExceptionType {
+       Incorrect_Delimiter_OR_wrong_Header, WRONG_FILE_TYPE, CENSUS_FILE_PROBLEM
     }
 
     ExceptionType type;
@@ -21,5 +22,5 @@ public class CensusAnalyserException extends Exception {
     public CensusAnalyserException(String message, ExceptionType type, Throwable cause) {
         super(message, cause);
         this.type = type;
-    }*/
+    }
 }

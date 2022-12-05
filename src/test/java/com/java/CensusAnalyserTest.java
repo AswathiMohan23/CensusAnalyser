@@ -3,8 +3,10 @@ package com.java;
 import com.opencsv.exceptions.CsvValidationException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 
 public class CensusAnalyserTest {
     static String CENSUS_FILE_PATH ="src/main/java/com/inputFiles/Census.csv";
@@ -19,12 +21,19 @@ public class CensusAnalyserTest {
         int numOfEntries=censusAnalyser.numberOfEntries(CENSUS_FILE_PATH);
         Assert.assertEquals(29,numOfEntries);
     }
+
     @Test
-    public void ifWrongFileIsGivenThenShouldReturnException() throws CensusAnalyserException {
+    public void givenIndiaCensusData_WithWrongFileType_ShouldThrowException () {
         try {
-            censusAnalyser.loadIndianCensusData(WRONG_CENSUS_FILE);
-        }catch (CensusAnalyserException e){
-            System.out.println(CensusAnalyserEnum.WRONG_FILE);
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadCensusData(WRONG_CENSUS_FILE);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_FILE_TYPE, e.type);
+        } catch (NoSuchFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -36,14 +45,8 @@ public class CensusAnalyserTest {
             System.out.println(CensusAnalyserEnum.WRONG_DELIMITER);
         }
     }
-   /* @Test
-    public void ifWrongHeaderShouldThrowException() throws CensusAnalyserException, CsvValidationException, IOException {
-        try {
-            censusAnalyser.determineDelimiter(WRONG_HEADER);
-        } catch (CensusAnalyserException e) {
-            System.out.println(CensusAnalyserEnum.WRONG_HEADER);
-        }
-    }*/
+
+
    @Test
    public void ifNoOfStateCodeRecordsMatchesReturnTrue() throws CensusAnalyserException {
        int numOfEntries=censusAnalyser.numberOfEntries(STATE_CODE_FILE_PATH);

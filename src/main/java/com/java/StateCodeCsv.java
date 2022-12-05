@@ -1,9 +1,30 @@
 package com.java;
 
-public class StateCodeCsv {
-    static  CensusAnalyser censusAnalyser=new CensusAnalyser();
-    public void stateCensusData(String csvFile) throws CensusAnalyserException {
-        censusAnalyser.loadCensusData(csvFile);
+import com.opencsv.bean.CsvBindByName;
 
+public class StateCodeCsv {
+    @CsvBindByName(column = "State", required = true)
+    public String state;
+
+    @CsvBindByName(column = "Population", required = true)
+    public int population;
+
+    @CsvBindByName(column = "AreaInSqKm", required = true)
+    public int areaInSqKm;
+
+    @CsvBindByName(column = "DensityPerSqKm", required = true)
+    public int densityPerSqKm;
+    @CsvBindByName(column = "StateCode", required = true)
+    public int StateCode;
+
+    @Override
+    public String toString() {
+        return "StateCodeCsv{" +
+                "state='" + state + '\'' +
+                ", population=" + population +
+                ", areaInSqKm=" + areaInSqKm +
+                ", densityPerSqKm=" + densityPerSqKm +
+                ", StateCode=" + StateCode +
+                '}';
     }
 }
