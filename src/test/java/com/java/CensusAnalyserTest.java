@@ -11,6 +11,7 @@ public class CensusAnalyserTest {
     static String STATE_CODE_FILE_PATH ="src/main/java/com/inputFiles/StateCode.csv";
     static String WRONG_CENSUS_FILE ="src/main/java/com/Census.csv";
     static String WRONG_DELIMITER ="src/main/java/com/inputFiles/WrongDelimiter.csv";
+    static String WRONG_DELIMITER_STATE ="src/main/java/com/inputFiles/StateCodeWrongDelimiter.csv";
     static String WRONG_HEADER ="src/main/java/com/inputFiles/WrongHeader.csv";
 
     static CensusAnalyser censusAnalyser=new CensusAnalyser();
@@ -23,7 +24,6 @@ public class CensusAnalyserTest {
     @Test
     public void givenIndiaCensusDataWithWrongFileTypeShouldThrowException () {
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
             censusAnalyser.loadIndianCensusData(WRONG_CENSUS_FILE);
@@ -35,7 +35,6 @@ public class CensusAnalyserTest {
     @Test
     public void givenIndiaCensusDataWithWrongDelimiterShouldThrowException () throws CensusAnalyserException {
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
             censusAnalyser.loadIndianCensusData(WRONG_DELIMITER );
@@ -60,4 +59,15 @@ public class CensusAnalyserTest {
        int numOfEntries=stateCensusAnalyser.numberOfEntries(STATE_CODE_FILE_PATH);
        Assert.assertEquals(29,numOfEntries);
    }
+    @Test
+    public void givenStateCodeDataWithWrongDelimiterShouldThrowException () throws CensusAnalyserException {
+        try {
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndianCensusData(WRONG_DELIMITER_STATE );
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.Incorrect_Delimiter_OR_wrong_Header, e.type);
+        }
+
+    }
 }
