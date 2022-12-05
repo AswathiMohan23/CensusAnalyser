@@ -34,12 +34,16 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void ifWrongDelimiterShouldThrowException() throws CensusAnalyserException, CsvValidationException, IOException {
+    public void givenIndiaCensusData_WithWrongDelimiter_ShouldThrowException () {
         try {
-            censusAnalyser.loadIndianCensusData(WRONG_DELIMITER);
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndianCensusData(WRONG_DELIMITER );
         } catch (CensusAnalyserException e) {
-            System.out.println(CensusAnalyserEnum.WRONG_DELIMITER);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.Incorrect_Delimiter_OR_wrong_Header, e.type);
         }
+
     }
    /* @Test
     public void ifWrongHeaderShouldThrowException() throws CensusAnalyserException, CsvValidationException, IOException {
