@@ -22,7 +22,7 @@ public class CensusAnalyserTest {
         Assert.assertEquals(29,numOfEntries);
     }
     @Test
-    public void givenIndiaCensusData_WithWrongFileType_ShouldThrowException () {
+    public void givenIndiaCensusDataWithWrongFileTypeShouldThrowException () {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -34,7 +34,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndiaCensusData_WithWrongDelimiter_ShouldThrowException () {
+    public void givenIndiaCensusDataWithWrongDelimiterShouldThrowException () {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -45,14 +45,17 @@ public class CensusAnalyserTest {
         }
 
     }
-   /* @Test
-    public void ifWrongHeaderShouldThrowException() throws CensusAnalyserException, CsvValidationException, IOException {
+    @Test
+    public void givenIndiaCensusDataWithWrongHeaderShouldThrowException() {
         try {
-            censusAnalyser.determineDelimiter(WRONG_HEADER);
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndianCensusData(WRONG_HEADER);
         } catch (CensusAnalyserException e) {
-            System.out.println(CensusAnalyserEnum.WRONG_HEADER);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.Incorrect_Delimiter_OR_wrong_Header, e.type);
         }
-    }*/
+    }
    @Test
    public void ifNoOfStateCodeRecordsMatchesReturnTrue() throws CensusAnalyserException {
        int numOfEntries=stateCensusAnalyser.numberOfEntries(STATE_CODE_FILE_PATH);
